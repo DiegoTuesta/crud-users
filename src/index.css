@@ -1,0 +1,160 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: aliceblue;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container {
+  margin-top: 4rem;
+  width: 100%;  
+  display: flex ;
+  /* background-color: red; */
+  justify-content: center;
+}
+.container-content{
+  width: 90%;
+}
+.container-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.container-body{
+  /* background-color: blue; */
+}
+
+.table {     
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 12px;
+  width: 100%;    
+  /* margin: 45px;      */
+  /* width: 480px; text-align: left;     */
+  border-collapse: collapse; 
+}
+
+.th {
+font-size: 18px;     
+font-weight: normal;     
+padding: 8px;     
+color: whitesmoke;
+font-weight: 700;
+background: #db3333;
+border-top: 4px solid #aabcfe;    
+border-bottom: 1px solid #050303; 
+}
+
+.td {    
+  font-size: 15px;
+  padding: 8px;     
+  background: #6272aa;     
+  border-bottom: 1px solid #fff;
+  color: black;    
+  font-weight: 800;
+  border-top: 1px solid transparent; 
+}
+
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100vh;
+  /* display: grid; */
+  place-items: center;
+}
+.modal-container{
+  padding: 2%;
+  background-color: white;
+  width: 50%;
+  min-width: 400px;
+  border-radius: 1rem;
+  position: relative;
+}
+
+.form-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', Courier, monospace;
+}
+.form-container h2{
+  font-size: 30px;
+}
+.form-control{
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+}
+.form-control input {
+  font-size: 20px;
+  padding: .2rem;
+}
+
+.btn {
+  padding: .6rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: scale(1.1);
+}
+.btn-add{
+  background-color: rgb(14, 158, 110);
+  color: #fff;
+  font-weight: 800;
+}
+.btn-edit{
+  background-color: orange;
+  color: #fff;
+  margin: 1px;
+  font-weight: 800;
+}
+.btn-delete{
+ background-color: red;
+ color: #fff;
+ margin: 1px;
+ font-weight: 800;
+}
+
+.btn-modal-close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2%;
+  background: transparent;
+  font-weight: 800;
+}
+
+.btn-submit{
+  margin-top: 1rem;
+  background-color: #db3333;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+}
+tbody tr td:nth-child(2){
+  text-align: center;
+}
+tbody tr td:nth-child(3){
+  text-align: center;
+}
+tbody tr td:nth-child(4){
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  .table {
+    /* display: block; */
+    overflow-x: auto;
+  }
+  .container-content{
+    width: 100%;
+  }
+}
