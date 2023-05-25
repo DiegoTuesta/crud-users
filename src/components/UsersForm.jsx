@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-const UsersForm = ({ data, updateList }) => {
+const UsersForm = ({ data, updateList, infoMessage }) => {
   const { register, handleSubmit, reset } = useForm();
 
 
@@ -43,11 +43,13 @@ const UsersForm = ({ data, updateList }) => {
               password: "",
             });
           updateList('c');
+          infoMessage({data: resp.data.first_name, type:'c'})
         })
         .catch((err) => console.error(err));
     }else{
         axios.put(`https://users-crud.academlo.tech/users/${data2.id}/`, data2)
         .then( (res) => {
+          
             res.data.id &&
             reset({
                 birthday: "",
@@ -58,6 +60,7 @@ const UsersForm = ({ data, updateList }) => {
                 password: "",
             });
             updateList('u');
+            infoMessage({data: res.data.first_name, type:'u'})
         } )
     }
   };

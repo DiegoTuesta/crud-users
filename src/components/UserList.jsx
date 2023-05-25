@@ -1,8 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Modal from "./Modal";
+import UsersForm from "./UsersForm";
+import Message from "./Message";
 
-const UserList = ({ dataUpdate, isOpenModal, getDataEdit, updateList }) => {
+const UserList = () => {
+
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(false)
+  const [dataEdit, setDataEdit] = useState({})
+  const [updateList, setUpdateList] = useState(false)
+  const [showMessage, setShowMessage] = useState(false)
+  const [dataMessage, setDataMessage] = useState({})
 
   const getData = () => {
     axios
@@ -13,37 +22,65 @@ const UserList = ({ dataUpdate, isOpenModal, getDataEdit, updateList }) => {
 
   useEffect(() => {
      getData();
-  }, [dataUpdate]);
+  }, [updateList]);
 
-  const handleClick = (type = "c") => {
+  const handleClick = (type) => {
       if (type === 'c') {
-        getDataEdit({data:null, type});
-        isOpenModal(true);
+        setDataEdit({data:null, type});
+        setShowModal(true);
       }else{
-        isOpenModal(true)
+        setShowModal(true)
       }
   };
+
+  const renderView = (value) => {
+    setUpdateList([...value])
+    setShowModal(false)
+    setShowMessage(true)
+  }
+  const confirm = () => {
+    // console.log('entro')
+    setShowMessage(false)
+    axios
+      .delete(`https://users-crud.academlo.tech/users/${dataMessage.id}/`)
+      .then((res) => { 
+        renderView('d')
+        setDataMessage({data:dataMessage.data, type: 'd'})
+        setShowMessage(true)
+      })
+      .catch((err) => console.error(err));
+  }
 
   const getInfo = (id, type) => {
     if (type === "u") {
       axios
         .get(`https://users-crud.academlo.tech/users/${id}/`)
         .then((res) => { 
-          getDataEdit({data:res.data, type});
+          setDataEdit({data:res.data, type});
           handleClick(type)
         })
         .catch((err) => console.error(err));
     } else {
       axios
-      .delete(`https://users-crud.academlo.tech/users/${id}/`)
+      .get(`https://users-crud.academlo.tech/users/${id}/`)
       .then((res) => { 
-        updateList('d')
+        
+        setDataMessage({data:res.data.first_name, type:'dq', id})
+        setShowMessage(true)
+        // renderView(true)
       })
       .catch((err) => console.error(err));
     }
   };
   return (
-    <div className="container">
+    <>
+     <Modal isOpen ={showModal} onClose={ () => setShowModal(false) }>
+        <UsersForm data={dataEdit}   updateList={(param) => renderView(param) } infoMessage={setDataMessage}/>
+      </Modal>
+      <Modal isOpen={showMessage} onClose={() => setShowMessage(false)} >
+          <Message info={dataMessage} confirm={confirm} />
+      </Modal>
+      <div className="container">
       <div className="container-content">
         <div className="container-title">
           <h1>Users</h1>
@@ -88,7 +125,10 @@ const UserList = ({ dataUpdate, isOpenModal, getDataEdit, updateList }) => {
                 ))
               ) : (
                 <tr>
-                  <td width={100} >No data</td>
+                 <td className="td"></td>
+                 <td className="td">No hay Datos</td>
+                 <td className="td"></td>
+                 <td className="td"></td>
                 </tr>
               )}
             </tbody>
@@ -96,6 +136,8 @@ const UserList = ({ dataUpdate, isOpenModal, getDataEdit, updateList }) => {
         </div>
       </div>
     </div>
+    </>
+    
   );
 };
 
