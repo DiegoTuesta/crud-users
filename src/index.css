@@ -163,11 +163,11 @@ font-weight: bolder;
 margin-bottom: 4%;
 }
 .message-footer{
-  text-align: end;
+  text-align: center;
   display: block;
 }
 .message-footer button {
-  width: 100%;
+  width: 90%;
   font-size: 1.2rem;
   border: none;
   cursor: pointer;
